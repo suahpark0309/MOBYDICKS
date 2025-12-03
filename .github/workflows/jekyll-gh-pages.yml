@@ -1,51 +1,329 @@
-# Sample workflow for building and deploying a Jekyll site to GitHub Pages
-name: Deploy Jekyll with GitHub Pages dependencies preinstalled
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고무나무위키</title>
+    <style>
+        /* 기본적인 스타일링을 위한 CSS (선택 사항) */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #3c9c8a;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+            background-color: #eee;
+            margin-bottom: 20px;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        main {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(36, 21, 104, 0.1);
+        }
+        h1 {
+            color: #ffffff;
+        }
+        h2 {
+            color: #0b0000;
+        }
+        dl {
+            margin-top: 20px;
+        }
+        dt {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+            margin-top: 25px; /* 별명 사이 간격 좀 더 확보 */
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        dd {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            font-size: 0.9em;
+        }
+        /* 댓글 기능 관련 스타일 */
+        .entry-item {
+            margin-bottom: 30px; /* 각 별명 항목 간의 여백 */
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #ddd; /* 구분선 */
+        }
+        .comment-section {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+        .comment-input {
+            width: calc(100% - 22px); /* 패딩 고려 */
+            min-height: 50px;
+            padding: 10px;
+            margin-bottom: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+        .add-comment-btn {
+            background-color: #3c9c8a;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+        .add-comment-btn:hover {
+            background-color: #2e7a6b;
+        }
+        .comments-list {
+            margin-top: 15px;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+        .comment-item {
+            background-color: #eef;
+            padding: 8px;
+            margin-bottom: 5px;
+            border-radius: 3px;
+            font-size: 0.9em;
+            color: #555;
+        }
+        .comment-item:last-child {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>고무나무위키</h1>
+    </header>
 
-on:
-  # Runs on pushes targeting the default branch
-  push:
-    branches: ["main"]
+    <nav>
+        <ul>
+            <li><a href="#intro">소개</a></li>
+            <li><a href="#list">별명 목록</a></li>
+            <li><a href="#contact">문의</a></li>
+        </ul>
+    </nav>
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+    <main>
+        <section id="intro">
+            <h2>모비딕스 51기의 별명들을 모아 설명하는 공간입니다.</h2>
+            <p>이곳에서는 흥미롭고 재미있는 별명들의 유래와 의미를 찾아볼 수 있습니다.</p>
+        </section>
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+        <section id="list">
+            <h2>별명 목록</h2>
+            <dl id="nickname-list-container">
+                <!-- JavaScript로 여기에 별명 목록이 동적으로 생성됩니다 -->
+            </dl>
+        </section>
+    </main>
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+    <footer>
+        <p>&copy; 과제중 잼컨ㅋ.</p>
+        <p><a href="https://www.youtube.com/@mobydicks4096" target="_blank">모비딕스 유튜브</a></p>
+    </footer>
 
-jobs:
-  # Build job
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./
-          destination: ./_site
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+    <script>
+        // 별명 데이터 배열 (term: 별명 제목, description: 별명 설명)
+        const nicknameData = [
+            { term: "고부민", description: "부자라서 생긴 별명이다" },
+            { term: "보민 히로부미", description: "MT가서 (독립운동가) 을 2초 동안 까먹음[이 아니라 내가 하려던거 뺏김]" },
+            { term: "고보민 중독", description: "고민중독 합주 중 춤으로 모두를 중독시킨 사건" },
+            { term: "고보수 민주", description: "정치외교과 - 파랑, 기타 - 빨강 : 중립유지의 비결" },
+            { term: "코자는 고보민", description: "코~ 자는 보민이" },
+            { term: "보로로와 친구들", description: "뽀로로와 친구들 + 고보민 + 한로로" },
+            { term: "GO보민", description: "아이즈원 제 13의 멤버(Secret)" },
+            { term: "Go계엄", description: "논란 ㄷㄷ" },
+            { term: "농담고보민", description: "농담곰 후리스를 입고다님" },
+            { term: "이지원숭이", description: "말그대로이다" },
+            { term: "김태육", description: "6위" },
+            { term: "고보킥", description: "고보민의 발차기" },
+            { term: "GGMG", description: "고보민 가면 가 (자매품 HHMH:한가람하면해)" },
+            { term: "안경숭이", description: "안경원숭이 + 안경수(형님)" },
+            { term: "고보민김밥", description: "고봉민 김밥 먹다가 생김" },
+            { term: "동소한가람", description: "한가람 때문에 비가 와서 공연을 못함" },
+            { term: "고부민 병원", description: "한가람이 발견한 부민 병원" },
+            { term: "착! 한가람", description: "착한 가람~" },
+            { term: "가(스라이팅)람", description: "가스라이팅 당하는 한가람" },
+            { term: "지원.서", description: "이지원이 종이가 된 사건" },
+            { term: "김태환", description: "준환선배가 긁힌 사건 (먹금 실패 ㅎ)" },
+            { term: "턱주가람", description: "한가람이 이지원의 턱주가리를 돌려버린다고 한 사건이다." },
+            { term: "키우미", description: "쑥쑥 자라라 우미야~" },
+            { term: "도우미", description: "도움이 필요할 때 Help! 우미! 외쳐보자" },
+            { term: "우먀", description: "우미야 를 줄여부르는 말" },
+            { term: "총동완이형합회", description: "총동연의 본체 , 총동연 core" },
+            { term: "날씨의 동완", description: "정확도 70%로 항상 비가 온다, 날씨의 아이 + 동완 형님" },
+            { term: "심세경", description: "심우미 + 신세경, 신세경씨가 추구(우)미 인 우미." },
+            { term: "정지호도과자", description: "호두과자를 좋아한다고 하십니다" },
+            { term: "고보문고", description: "고보민이 세운 서점" },
+            { term: "커부민", description: "커피부자 보민" },
+            { term: "박수~~~~~~~~~아", description: "수아생일 기념 박수~~아주 축하드립니다" },
+            { term: "진.심 축하드립니다", description: "진정환, 심우미 생일" },
+            { term: "가(람)위", description: "한가위람, 한가위" },
+            { term: "유혹보민", description: "인사대 건물에서 한가람 유혹함" },
+            { term: "거(우)미", description: "임영은의 집 동거인 거미를 추방한 사건" },
+            { term: "고보몽", description: "챗지피띠니(세중)" },
+            { term: "고봄비", description: "챗지피띠니(세중)" },
+            { term: "고보차이", description: "챗지피띠니(세중)" },
+            { term: "고보락", description: "챗지피띠니(세중)" },
+            { term: "고보핑", description: "챗지피띠니(세중)" },
+            { term: "고보킥", description: "챗지피띠니(세중)" },
+            { term: "노예2호", description: "고보민이 경민선배의 노예 2호가 된 사건" },
+            { term: "이경민의 노예제도", description: "1호-심우미, 2호-고보민, 3호-윤우혁, 4호-한가람, 5호-이지원, 6호-이하람" },
+            { term: "고불고불길", description: "롯데월드에서 디거를 타고 나온길이 고불고불했던 사건." },
+            { term: "고보사진박사", description: "담이를 보러간날 담이의 희햄사를 엄청 찍어서 생긴 별명이다." },
+            { term: "심시마로", description: "심우미가 눈을 늘렸더니 마시마로가 된 사건이다다" },
+            { term: "고저격", description: "고보민이 문답인척 52기를 저격한 사건이다 (고보민 블로그 30문답 참조)" },
+            { term: "고MZ", description: "30문답 질문을 어떻게 쓰냐는 질문에 인스타에서 꾹눌러 복붙하는법을 우미한테 알려줌" },
+            { term: "할람이", description: "(이하람말하는거임) 듀가나디에 대해서 자꾸 물어본 사건이다. [이게 만화야?? 이모티콘이야?? 유행이야??]" },
+            { term: "신데렐라 지원", description: "이레가 집회 중 커피를 쏟아 지워니 신발을 젖게 한 사건이다." },
+            { term: "촉촉지원", description: "그 결과 발이 촉촉해졌다." },
+            { term: "거침없이 고보킥", description: "거침없이 하이킥을 따라하는 보민이다." },
+            { term: "고라니", description: "고보민이 으아아아악 고라니 소리를 내길 바란다." },
+            { term: "고봉밥블로그", description: "고보민의 블로그 글 한바가지여서 준환선배가 남긴 댓글" },
+            { term: "믿보고보민", description: "믿고보는고보민 (4월2일 블로그 참조)" },
+            { term: "고보쿨", description: "고보민 cool한 girl~ 사실아님, 고보민 쿨쿨푸데푸데흠냐링임" },
+            { term: "코~보민", description: "코~자는 코보밈" },
+            { term: "이레건재", description: "김이레는건재하다 이레집앞에 있는 이레건재간판" },
+            { term: "고복민", description: "고보민복복복복🫳🫳🫳💕" },
+            { term: "금쉪", description: "엠티, 선배집에서 요리를 엄청나게 맛있게 해주심 ㄷㄷ 담이네 반찬가게 ㄹㅊㄱ~~" },
+            { term: "금아빠", description: "도웅선배가 꽤나 아빠미 있으심" },
+            { term: "바보민", description: "술게임 에" },
+            { term: "바보원", description: "50기 이름대기:이하람" },
+            { term: "우혁핑", description: "손맥주집에서 우혁이는 양머리를 좋아해" },
+            { term: "심억까", description: "박 찬~~하" },
+            { term: "총우혁", description: "홍삼게임-엌" },
+            { term: "고짱이", description: "어렸을 때 줄넘기를 잘해서 그런가" },
+            { term: "치아보민", description: "원하지 않는 상황이 오면 치아를 드러냄" },
+            { term: "마젝지원", description: "내 첫번째는 고보민이야 한가람이야~" },
+            { term: "개미쳤네??개빠졌네??정신안차려??", description: "이**, *경*, **민" },
+            { term: "재즈보민", description: "50주년 행사때 지호 선배가 생일 주를 드신 후 재즈피크를 선물한 사건.고보민의 재즈피크 입문의 시작작" },
+            { term: "안경두", description: "경수형님이 만두머리가 된다고 이지원이 말함. 근데 그날 안경을 쓰고 오심. 안경을 쓴 만두머리를 한 남자, 안경만두, 그의 이름은 안경수, 안경두~" },
+            { term: "고보정치", description: "고무나무위키를 자신의 입맛대로 만질려고 함 ㄷㄷ" },
+            { term: "고보조작", description: "고보민은 무엇이든지 조작할 수 있는 사람 다들 조심하자!" },
+            { term: "MC Killer. 다죽자", description: "쇳물결 힙합 공연을 보던 중 정세중이 만든 고보민의 이름." },
+            { term: "기짱이레", description: "합주 중 처음으로 하나도 안틀리고 갓노우즈를 성공한 이레 (고보민의 등재 요청이 있었다.)" },
+            { term: "채흐씨", description: "고보민의 블로그에 등장하는 친구 채희씨" },
+            { term: "고보물리학", description: "전자기파-고보민은 빛처럼 빠르고 어디서든 영향을 미쳐. 엔트로피 증가법칙-어떤 공간에 고보민이 등장하면, 조용하던 분위기가 점점 활기를 띠고, 예측 불가능한 에너지의 흐름이 발생해. 이건 마치 닫힌계에서 엔트로피가 증가하는 자연스러운 방향이다." },
+            { term: "고로그", description: "고보민 블로그의 줄임말(고보민은 4년째? 주간 블로그를 쓰는중이다)" },
+            { term: "고패닉", description: "패닉 스테이션 하다가 패닉옴 ㅋ" },
+            { term: "고루미늄 솔로", description: "1분" },
+            { term: "고리사", description: "고보민 요리사" },
+            { term: "악필보민", description: "졸면서 수업 필기하심" },
+            { term: "고보살", description: "수아가 오늘도 노쇼를 햇음 고보밈은 화내지 않ㅇ므" },
+            { term: "고보약국", description: "가방안에 약국 차리심 (나 콧물 훌쩍아니까 약 내어줌 이게 약사가 아니라면 뭔데.)" },
+            { term: "콧물가람", description: "가람이가 훌쩍거리는 사건" },
+            { term: "MC Killer", description: "다죽자다죽자다죽자다죽자 “I say 다 You say 죽자!!!”" },
+            { term: "고보매의 눈", description: "매의 눈을 가진 여성" },
+            { term: "고보정병", description: "시험기간때 마다 나타나며 힘들어할때는 마짜를 사주면 된다. 그리고 산책" },
+            { term: "고추", description: "고보민추락 madeby.Easy1(상당히불미스러운별명이다)" },
+            { term: "고보절대매달려", description: "두유띵크암프레질? 고세라핌" },
+            { term: "고츠하이머", description: "최재1가람생파날 최재원한테 케이크샷나고물어본사건;;" },
+            { term: "고포효", description: "서구버스킹 갑자기 15분에서 30분하라고시킴;;" },
+            { term: "빠보민", description: "빠른 보민" },
+            { term: "고뽀민", description: "고보민이 뽀또에잇는 어린왕자가 여우한테 뽀뽀한다고하고 뽀또도 뽀뽀로 바꾸고 여우얼굴에 뽀뽀마크 남김;;" },
+            { term: "고플루언서", description: "모비딕스내 인플루언서다 발언(10월20일자)" },
+            { term: "박동완두콩", description: "madeby 최재원" },
+            { term: "아뽀하중", description: "아침에뽀뽀하는 하람세중" },
+            { term: "유다밴노래답하지못한우혁", description: "술게임에서 유다밴 노래 맨트 말하지 못한 윤우혁 진짜죽일게" },
+            { term: "고보균", description: "홍동균에 빙의한 아지랑이보민" },
+            { term: "모비딕스의바깥일", description: "유환아빠" },
+            { term: "모비딕스의집안일", description: "도웅엄마" },
+            { term: "김유환경파괴", description: "일쓰랑 캔이랑같이버림ㄸㄷ!!(김유환상적드럼실력: 근데 드럼잘치심 그리고 환경공학과 지원,내영이 정화해줌)" },
+            { term: "고조롱", description: "아뽀하중일 다음날 세중하람 스토리가 올라왔는데 고보민이 “오늘아침에도뽀뽀했어?(수즙은 이모티콘)”이라고 스답을 보낸 사건<개미친놈ㅋㅋㅇ" },
+            { term: "고동균", description: "99번째 가을발표회에서 레전드 아지랑이연주를 해낸 고복민(11/30)" },
+            { term: "고보백파티", description: "고무나무위키 100개 돌파기념일" },
+        ];
 
-  # Deployment job
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        document.addEventListener('DOMContentLoaded', () => {
+            const nicknameListContainer = document.getElementById('nickname-list-container');
+
+            // 별명 데이터로 목록 생성 및 댓글 기능 추가
+            nicknameData.forEach(data => {
+                const entryItem = document.createElement('div');
+                entryItem.classList.add('entry-item');
+
+                const dt = document.createElement('dt');
+                dt.textContent = data.term;
+                entryItem.appendChild(dt);
+
+                const dd = document.createElement('dd');
+                dd.textContent = data.description;
+                entryItem.appendChild(dd);
+
+                // 댓글 섹션 생성
+                const commentSection = document.createElement('div');
+                commentSection.classList.add('comment-section');
+
+                const textarea = document.createElement('textarea');
+                textarea.setAttribute('placeholder', '댓글을 입력하세요...');
+                textarea.classList.add('comment-input');
+                commentSection.appendChild(textarea);
+
+                const button = document.createElement('button');
+                button.classList.add('add-comment-btn');
+                button.textContent = '댓글 달기';
+                commentSection.appendChild(button);
+
+                const commentsList = document.createElement('div');
+                commentsList.classList.add('comments-list');
+                commentSection.appendChild(commentsList);
+
+                entryItem.appendChild(commentSection);
+                nicknameListContainer.appendChild(entryItem);
+            });
+
+            // 이벤트 위임을 사용하여 '댓글 달기' 버튼 이벤트 처리
+            // 동적으로 생성된 버튼에도 이벤트가 적용되도록 부모 요소(nicknameListContainer)에 리스너를 달았어요.
+            nicknameListContainer.addEventListener('click', (event) => {
+                if (event.target.classList.contains('add-comment-btn')) {
+                    const button = event.target;
+                    const commentSection = button.closest('.comment-section');
+                    const textarea = commentSection.querySelector('.comment-input');
+                    const commentsList = commentSection.querySelector('.comments-list');
+                    const commentText = textarea.value.trim();
+
+                    if (commentText) {
+                        const newComment = document.createElement('div');
+                        newComment.classList.add('comment-item');
+                        newComment.textContent = commentText;
+                        commentsList.appendChild(newComment);
+                        textarea.value = '';
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
